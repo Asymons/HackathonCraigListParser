@@ -1,6 +1,8 @@
 package com.electron.parser;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -41,7 +43,7 @@ public class Server implements Runnable {
 		System.out.println("server runnig...");
 		try {
 			StringBuilder builder = new StringBuilder(); 							// Used to convert Strings/Arrays/Maps to JSON Text
-			configSocket = new ServerSocket(3004);									//port for socket
+			configSocket = new ServerSocket(8004);									//port for socket
 			System.out.println("Server initialized...");
 			while(true){
 				Socket client = configSocket.accept();  							//Block entire program until request from client.
@@ -50,8 +52,9 @@ public class Server implements Runnable {
 				PrintWriter out = new PrintWriter(client.getOutputStream());		//OUTPUT TO CLIENT
 				Scanner sc = new Scanner(client.getInputStream());					//INPUT TO CLIENT
 				
+				this.searchQuery = sc.nextLine();
 				
-//				this.searchQuery = sc.nextLine();									//Reading from Client Request
+				System.out.println(this.searchQuery);
 				
 				//Search Website//
 				

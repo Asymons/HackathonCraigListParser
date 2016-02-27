@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Client implements Runnable{
 
 	String hostname = "127.0.0.1";
-	int portNumber = 3004;
+	int portNumber = 8004;
 	Socket clientsocket;
 	@Override
 	public void run() {
@@ -19,7 +19,7 @@ public class Client implements Runnable{
 			PrintWriter out = new PrintWriter(clientsocket.getOutputStream());
 			Scanner sc = new Scanner(clientsocket.getInputStream());
 			
-			out.write(" ");
+			out.write("blall");
 			System.out.println("I wrote nothing");
 			
 			while(sc.hasNext()){
