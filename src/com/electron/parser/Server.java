@@ -1,6 +1,10 @@
 package com.electron.parser;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -24,7 +28,7 @@ public class Server implements Runnable {
 	HashMap<Integer, String> title = new HashMap<>();
 	HashMap<Integer, String> price = new HashMap<>();
 	
-	Discoverer d = new Discoverer();
+	Discoverer d;
 	
 	public Server(){
 		searchQuery = "";
@@ -57,13 +61,15 @@ public class Server implements Runnable {
 				System.out.println(this.searchQuery);
 				
 				//Search Website//
-				
+				d = new Discoverer(searchQuery);
 				jsonURL = d.getJsonURLString();
 				jsonTitle = d.getJsonTitleString();
 				jsonPrice = d.getJsonPriceString();
 				
 				builder.append("{" + "\"url\":"+ jsonURL + ","+"\"title\":"+ jsonTitle + ","+"\"price\":"+ jsonPrice + "}");
-				out.write(builder.toString());
+				out.write(write(builder.toString()));
+				builder.delete(0, builder.length());
+				System.out.println(builder.toString());
 				System.out.println("Server responded <33");
 				out.close();
 				client.close();
@@ -75,4 +81,21 @@ public class Server implements Runnable {
 
 	}
 
+	public String write(String data){
+		File file = new File("file.json");
+		file.delete();
+		try {
+			FileWriter writter = new FileWriter(file, false);
+			writter.write(data);
+			System.out.println("data written");
+			writter.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return file.getAbsolutePath();
+	}
+	
 }
