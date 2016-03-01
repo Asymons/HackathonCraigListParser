@@ -23,12 +23,6 @@ public class Console {
 	public static void main(String[] args) throws IOException {
 		Server server = new Server();
 		Thread t = new Thread(server);
-		
-		Discoverer d = new Discoverer(server.getSearch());
-		Document x = d.connectURL();
-		Elements links = x.select("a[href]");
-		d.setSelect(links);
-
 		t.start();
 		
 //		Thread client = new Thread(new Client());

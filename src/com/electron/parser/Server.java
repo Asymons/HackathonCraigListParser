@@ -13,6 +13,9 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -62,10 +65,12 @@ public class Server implements Runnable {
 				
 				//Search Website//
 				d = new Discoverer(searchQuery);
+				Document x = d.connectURL();
+				Elements links = x.select("a[href]");
+				d.setSelect(links);
 				jsonURL = d.getJsonURLString();
 				jsonTitle = d.getJsonTitleString();
 				jsonPrice = d.getJsonPriceString();
-				
 				builder.append("{" + "\"url\":"+ jsonURL + ","+"\"title\":"+ jsonTitle + ","+"\"price\":"+ jsonPrice + "}");
 				System.out.println(builder.toString());
 				out.write(write(builder.toString()));
@@ -75,6 +80,8 @@ public class Server implements Runnable {
 				out.close();
 				client.close();
 				sc.close();
+				
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -87,7 +94,8 @@ public class Server implements Runnable {
 	}
 
 	public String write(String data){
-		File file = new File("file.json");
+		File file = new File("D:\\file.json");
+		file.delete();
 		try {
 			FileWriter writter = new FileWriter(file, false);
 			writter.write(data);

@@ -31,7 +31,7 @@ public class Discoverer {
 	}
 
 	public Discoverer(String search) {
-		url = ("http://windsor.craigslist.ca/search/sss?sort=rel&query=" + search);
+		url = ("http://windsor.craigslist.ca/search/sss?query=" + search);
 		System.out.println(url);
 		this.client = "Mozilla";
 	}
