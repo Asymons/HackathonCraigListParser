@@ -56,6 +56,9 @@ public class Discoverer {
  */
 	
 	public void setSelect(Elements links){
+		URL.clear();
+		price.clear();
+		title.clear();
 		for (Element link : links) {
 			resultNumber++;
 			URL.put(resultNumber, link.attr("abs:href"));

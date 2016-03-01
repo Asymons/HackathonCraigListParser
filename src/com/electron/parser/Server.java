@@ -94,7 +94,7 @@ public class Server implements Runnable {
 	}
 
 	public String write(String data){
-		File file = new File("D:\\file.json");
+		File file = new File("file.json");
 		file.delete();
 		try {
 			FileWriter writter = new FileWriter(file, false);
