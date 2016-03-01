@@ -31,7 +31,7 @@ public class Discoverer {
 	}
 
 	public Discoverer(String search) {
-		url = "http://windsor.craigslist.ca/search/sss?sort=rel&query=" + search;
+		url = ("http://windsor.craigslist.ca/search/sss?sort=rel&query=" + search);
 		System.out.println(url);
 		this.client = "Mozilla";
 	}
@@ -43,6 +43,7 @@ public class Discoverer {
 
 
 	public Document connectURL() throws IOException{
+		System.out.println(url);
 		return Jsoup.connect(url).userAgent(client).get();
 	}
 	

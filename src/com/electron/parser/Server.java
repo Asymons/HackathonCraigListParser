@@ -67,6 +67,7 @@ public class Server implements Runnable {
 				jsonPrice = d.getJsonPriceString();
 				
 				builder.append("{" + "\"url\":"+ jsonURL + ","+"\"title\":"+ jsonTitle + ","+"\"price\":"+ jsonPrice + "}");
+				System.out.println(builder.toString());
 				out.write(write(builder.toString()));
 				builder.delete(0, builder.length());
 				System.out.println(builder.toString());
@@ -80,10 +81,13 @@ public class Server implements Runnable {
 		}
 
 	}
+	
+	public String getSearch(){
+		return this.searchQuery;
+	}
 
 	public String write(String data){
 		File file = new File("file.json");
-		file.delete();
 		try {
 			FileWriter writter = new FileWriter(file, false);
 			writter.write(data);
@@ -92,7 +96,6 @@ public class Server implements Runnable {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return file.getAbsolutePath();

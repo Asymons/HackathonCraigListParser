@@ -21,19 +21,18 @@ public class Console {
 	}
 
 	public static void main(String[] args) throws IOException {
-		Discoverer d = new Discoverer("xbox");
+		Server server = new Server();
+		Thread t = new Thread(server);
+		
+		Discoverer d = new Discoverer(server.getSearch());
 		Document x = d.connectURL();
 		Elements links = x.select("a[href]");
 		d.setSelect(links);
 
-		Server server = new Server();
-
-		Thread t = new Thread(server);
-
 		t.start();
 		
-		//Thread client = new Thread(new Client());
-		//client.start();
+//		Thread client = new Thread(new Client());
+//		client.start();
 		
 	}
 }
